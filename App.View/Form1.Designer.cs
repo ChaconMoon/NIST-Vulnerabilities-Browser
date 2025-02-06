@@ -36,12 +36,14 @@
             Description = new DataGridViewTextBoxColumn();
             CVSS_Score = new DataGridViewTextBoxColumn();
             textBox = new RichTextBox();
+            TextBoxSoftwareName = new TextBox();
+            connecting_textLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(302, 415);
+            button1.Location = new Point(149, 415);
             button1.Name = "button1";
             button1.Size = new Size(175, 23);
             button1.TabIndex = 0;
@@ -97,11 +99,28 @@
             textBox.TabIndex = 3;
             textBox.Text = "";
             // 
+            // TextBoxSoftwareName
+            // 
+            TextBoxSoftwareName.Location = new Point(457, 415);
+            TextBoxSoftwareName.Name = "TextBoxSoftwareName";
+            TextBoxSoftwareName.Size = new Size(169, 23);
+            TextBoxSoftwareName.TabIndex = 4;
+            // 
+            // connecting_textLabel
+            // 
+            connecting_textLabel.AutoSize = true;
+            connecting_textLabel.Location = new Point(330, 419);
+            connecting_textLabel.Name = "connecting_textLabel";
+            connecting_textLabel.Size = new Size(0, 15);
+            connecting_textLabel.TabIndex = 5;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1244, 450);
+            Controls.Add(connecting_textLabel);
+            Controls.Add(TextBoxSoftwareName);
             Controls.Add(textBox);
             Controls.Add(dataGridView1);
             Controls.Add(button1);
@@ -109,6 +128,7 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -121,5 +141,7 @@
         private DataGridViewTextBoxColumn Description;
         private DataGridViewTextBoxColumn CVSS_Score;
         private RichTextBox textBox;
+        private TextBox TextBoxSoftwareName;
+        private Label connecting_textLabel;
     }
 }

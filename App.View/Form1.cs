@@ -17,8 +17,10 @@ namespace App.View
 
         private async void GetCVEs()
         {
-            JObject str = await cveManagement.GetCVEInfo();
-            textBox.Text = str["vulnerabilities"][0].ToString();
+            connecting_textLabel.Text = "Connecting to NIST...";
+            JObject str = await cveManagement.GetCVEInfo(textBox.Text);
+            textBox.Text = cveManagement.FormatCVEs(str).ToString();
+            connecting_textLabel.Text = "Connected!";
         }
 
         private void button1_Click(object sender, EventArgs e)
