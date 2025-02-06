@@ -8,6 +8,10 @@ namespace App.Data
 {
     public class CVEs
     {
-        public List<Cve>? cves { get; set; } 
+        public List<Cve>? CveList { get; set; } 
+        public CVEs()
+        {
+            CveList = new List<Cve>();
+        }
     }
 }

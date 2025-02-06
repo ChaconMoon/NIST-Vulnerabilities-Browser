@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             button1 = new Button();
-            dataGridView1 = new DataGridView();
+            resultTable = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
             Published = new DataGridViewTextBoxColumn();
             LastModified = new DataGridViewTextBoxColumn();
@@ -38,7 +38,7 @@
             textBox = new RichTextBox();
             TextBoxSoftwareName = new TextBox();
             connecting_textLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)resultTable).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -51,14 +51,14 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // dataGridView1
+            // resultTable
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, Published, LastModified, Description, CVSS_Score });
-            dataGridView1.Location = new Point(12, 12);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(776, 397);
-            dataGridView1.TabIndex = 1;
+            resultTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resultTable.Columns.AddRange(new DataGridViewColumn[] { ID, Published, LastModified, Description, CVSS_Score });
+            resultTable.Location = new Point(12, 12);
+            resultTable.Name = "resultTable";
+            resultTable.Size = new Size(776, 397);
+            resultTable.TabIndex = 1;
             // 
             // ID
             // 
@@ -122,11 +122,11 @@
             Controls.Add(connecting_textLabel);
             Controls.Add(TextBoxSoftwareName);
             Controls.Add(textBox);
-            Controls.Add(dataGridView1);
+            Controls.Add(resultTable);
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)resultTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -134,7 +134,7 @@
         #endregion
 
         private Button button1;
-        private DataGridView dataGridView1;
+        private DataGridView resultTable;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Published;
         private DataGridViewTextBoxColumn LastModified;

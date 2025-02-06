@@ -1,7 +1,9 @@
 ﻿using App.Data;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text.Json.Nodes;
+using System.Data;
+using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 namespace App.Controller
 {
     public class CVEManagement
@@ -13,7 +15,7 @@ namespace App.Controller
             httpClient = new HttpClient();
         }
 
-        public async Task<JObject> GetCVEInfo(String softwareName)
+        public async Task<JsonDocument> GetCVEInfo(String softwareName)
         {
             try
             {
@@ -22,7 +24,8 @@ namespace App.Controller
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "My_NUnit_Project");
                 HttpResponseMessage response = await httpClient.GetAsync(apiURL);
                 string json = await response.Content.ReadAsStringAsync();
-                return JObject.Parse(json);
+                JsonDocument doc_json = JsonDocument.Parse(json);
+                return doc_json;
             }
             catch (Exception ex)
             {
@@ -30,27 +33,99 @@ namespace App.Controller
                 return null;
             }
         }
-        public List<Cve> FormatCVEs(JObject cveList)
+        public CVEs FormatJSONSVEs(JsonDocument doc_cve)
         {
-            List<Cve> cves = new List<Cve>();
-            JArray array_cve = new JArray();
-            array_cve.Add(cveList["vulnerabilities"]);
-            foreach (var cve in array_cve)
+            CVEs cves = new CVEs();
+            foreach (JsonElement vulnerability in doc_cve.RootElement.GetProperty("vulnerabilities").EnumerateArray())
             {
-                cves.Add(new Cve
+                string description;
+                string id;
+                string sourceIdentifier;
+                string pulished;
+                string lastModified;
+                string vulStatus;
+                float impactScore;
+                try
                 {
-                    id = cve["cve_id"].ToString(),
-                    sourceIdentifier = cve["summary"].ToString(),
-                    published = cve["published_date"].ToString(),
-                    lastModified = cve["last_modified_date"].ToString(),
-                    vulnStatus = cve["cvss"].ToString(),
-                    description = cve["cwe"].ToString(),
-                    impactScore = cve["impact_score"].ToString()
-                });
+                  description =  vulnerability.GetProperty("cve").GetProperty("descriptions").EnumerateArray().ElementAt(1).GetProperty("value").ToString();
+                }
+
+                catch
+                {
+                    description = vulnerability.GetProperty("cve").GetProperty("descriptions").EnumerateArray().ElementAt(0).GetProperty("value").ToString();
+                }
+
+                try
+                {
+                    id = vulnerability.GetProperty("cve").GetProperty("id").ToString();
+                }
+
+                catch
+                {
+                    id = "SIN VALOR";
+                }
+
+                try
+                {
+                    sourceIdentifier = vulnerability.GetProperty("cve").GetProperty("sourceIdentifier").ToString();
+                }
+
+                catch
+                {
+                    sourceIdentifier = "SIN VALOR";
+                }
+
+                try
+                {
+                   pulished = vulnerability.GetProperty("cve").GetProperty("published").ToString();
+                } 
+                catch
+                {
+                    pulished = "SIN VALOR";
+                }
+
+                try
+                {
+                    lastModified = vulnerability.GetProperty("cve").GetProperty("lastModified").ToString();
+                }
+                catch
+                {
+                    lastModified = "SIN VALOR";
+                }
+
+                try
+                {
+                    vulStatus = vulnerability.GetProperty("cve").GetProperty("vulnStatus").ToString();
+                } 
+                catch
+                {
+                    vulStatus = "SIN VALOR";
+                }
+
+                try
+                {
+                    impactScore = float.Parse(vulnerability.GetProperty("cve").GetProperty("metrics").GetProperty("cvssMetricV2").EnumerateArray().ElementAt(0).GetProperty("cvssData").GetProperty("baseScore").ToString());
+                } 
+                catch
+                {
+                    CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    culture.NumberFormat.NumberDecimalSeparator = ".";
+                    impactScore = float.NaN;
+                }
+
+                cves.CveList.Add(new Cve(
+                id,
+                sourceIdentifier,
+                pulished,
+                lastModified,
+                vulStatus,
+                description,
+                impactScore
+                    )
+                );
             }
             return cves;
         }
-
     }
 }
 
