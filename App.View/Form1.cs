@@ -6,35 +6,37 @@ namespace App.View
 {
     public partial class Form1 : Form
     {
-        private CVEManagement cveManagement;
+        public CVEManagement cveManagement;
         private CVEs cves;
+        /*TESTED*/
         public Form1()
         {
             InitializeComponent();
             cveManagement = new CVEManagement();
             cves = new CVEs();
         }
-
-        private async void GetCVEs()
+        /*TESTED*/
+        public async Task<string> GetCVEs()
         {
             connecting_textLabel.Text = "Connecting to NIST...";
             try
             {
                 JsonDocument str = await cveManagement.GetCVEInfo(textBox.Text);
-                string result = buildDataView(str);
+                string result = BuildDataView(str);
                 textBox.Text = result;
                 connecting_textLabel.Text = "Connected!";
+                return "Successful";
             }
             catch (NullReferenceException)
             {
                 connecting_textLabel.Text = "Error en la petición Web";
+                throw new NullReferenceException();
             }
 
         }
-        private string buildDataView(JsonDocument str)
+        public string BuildDataView(JsonDocument str)
         {
-            string result = "";
-            foreach (Cve cve in cveManagement.FormatJSONSVEs(str).CveList)
+            foreach (Cve cve in cveManagement.FormatJSONCVEs(str).CveList)
             {
                 DataGridViewRow row = (DataGridViewRow)resultTable.Rows[0].Clone();
                 row.Cells[0].Value = cve.id;
@@ -43,16 +45,14 @@ namespace App.View
                 row.Cells[3].Value = cve.description;
                 row.Cells[4].Value = cve.impactScore;
                 resultTable.Rows.Add(row);
-
-                result += cve.ToString() + " ";
             }
-            return result;
+            return "Successful";
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            GetCVEs();
+            _ = GetCVEs();
         }
     }
 }

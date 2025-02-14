@@ -1,4 +1,5 @@
 ﻿using App.Data;
+using Moq;
 using System.Data;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
@@ -15,7 +16,7 @@ namespace App.Controller
             httpClient = new HttpClient();
         }
 
-        public async Task<JsonDocument> GetCVEInfo(String softwareName)
+        public virtual async Task<JsonDocument> GetCVEInfo(String softwareName)
         {
             try
             {
@@ -33,7 +34,9 @@ namespace App.Controller
                 return null;
             }
         }
-        public CVEs FormatJSONSVEs(JsonDocument doc_cve)
+
+        /*TESTED*/
+        public CVEs FormatJSONCVEs(JsonDocument doc_cve)
         {
             CVEs cves = new CVEs();
             foreach (JsonElement vulnerability in doc_cve.RootElement.GetProperty("vulnerabilities").EnumerateArray())
@@ -104,12 +107,12 @@ namespace App.Controller
 
                 try
                 {
+                    CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    culture.NumberFormat.NumberDecimalSeparator = ".";
                     impactScore = float.Parse(vulnerability.GetProperty("cve").GetProperty("metrics").GetProperty("cvssMetricV2").EnumerateArray().ElementAt(0).GetProperty("cvssData").GetProperty("baseScore").ToString());
                 } 
                 catch
                 {
-                    CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-                    culture.NumberFormat.NumberDecimalSeparator = ".";
                     impactScore = float.NaN;
                 }
 

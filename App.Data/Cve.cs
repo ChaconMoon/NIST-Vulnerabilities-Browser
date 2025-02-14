@@ -31,5 +31,13 @@ namespace App.Data
         {
             return id + sourceIdentifier + published + lastModified + vulnStatus + description + impactScore + "\n";
         }
+        public bool CheckCVE()
+        {
+            if (id == "" || sourceIdentifier == "" || published == "" || lastModified == "" || vulnStatus == "" || description == "")
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
