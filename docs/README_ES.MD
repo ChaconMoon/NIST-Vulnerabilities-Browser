@@ -23,11 +23,11 @@ git clone https://github.com/ChaconMoon/NUnit-Project.git
 ```
 Abrir la solución en Visual Studio y haciendo click derecho en el proyecto App.View -> Publish 
 
-![Publish Screenshot](images/publish_screenshot.png)
+![Publish Screenshot](../images/publish_screenshot.png)
 
-crea un perfil de compilación para Windows x86, x64, ARM32 o ARM64 segun tu procesador.
+crea un perfil de compilación para Windows x86, x64, ARM32 o ARM64 según tu procesador.
 
-![Publish Profile Screenshot](images/publish_profile_screenshot.png)
+![Publish Profile Screenshot](../images/publish_profile_screenshot.png)
 
 ## Funcionamiento
 

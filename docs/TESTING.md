@@ -10,7 +10,7 @@ Este es un framework que permite realizar tests unitarios en la plataforma .NET 
 
 Este framework se puede instalar de 2 formas con el gestor de paquetes NuGet o creando un proyecto de Testing que lo use.
 
-**LA OPCION RECOMENDADA ES INSTALAR UN PROYECTO DE PRUEBAS**
+**LA OPCIÓN RECOMENDADA ES INSTALAR UN PROYECTO DE PRUEBAS**
 
 ### Instalación mediante un proyecto.
 
@@ -18,22 +18,22 @@ A la hora de crear un proyecto en Visual Studio una de las opciones que nos da s
 
 ![Crate NUnit Project](../images/testing/create_project_screenshot.png)
 
-Esto nos creara un proyecto cuyo fin sera testear otros proyectos, en Visual Studio lo veremos asi, lo podremos distingir porque tiene un frasco de laboratorio en su icono.
+Esto nos creara un proyecto cuyo fin sera testear otros proyectos, en Visual Studio lo veremos asi, lo podremos distinguir porque tiene un frasco de laboratorio en su icono.
 
 ![NUnit Project in IDE](../images/testing/NUnit_in_IDE_screenshot.png)
 
 ### Instalación mediante un paquete NuGet.
 
-Si ya tienes el proyecto creado y simplemente quieres añadir la libreria de test debes instalar el paquete NuGet, para ello ve a proyecto -> Administrar paquetes NuGet.
+Si ya tienes el proyecto creado y simplemente quieres añadir la librería de test debes instalar el paquete NuGet, para ello ve a proyecto -> Administrar paquetes NuGet.
 
 ![Nuget Package](../images/testing/Nuget_package_screenshot.png)
 
 Dentro del gestor de paquetes buscamos los 3 paquetes de NUnit y los instalamos.
 ![NUnit Package Installation](../images/testing/NUnit_Package_Installation.png)
 
-Tanto si has creado un proyecto como si lo has instalado manulmente ya puedes crear tests creando clases para ello, puedes comprobar que tienes NUnit Instalado si vas a las dependencias del proyecto y miras si tienes NUnit.
+Tanto si has creado un proyecto como si lo has instalado manualmente ya puedes crear tests creando clases para ello, puedes comprobar que tienes NUnit Instalado si vas a las dependencias del proyecto y miras si tienes NUnit.
 
-![NUnit as a dependecy screenshot](../images/testing/dependencies_screenshot.png)
+![NUnit as a dependency screenshot](../images/testing/dependencies_screenshot.png)
 
 ## Creación de Tests
 
@@ -45,44 +45,44 @@ Estas clases contienen los tests unitarios y un test de integración, primero va
 
 ### Test Unitarios (UnitTest.cs)
 
-Los test unitarios buscan testear una parte del código, estos tests buscan asegurar que un fragmento de codigo arroje el resultado deseado para ello se usan metodos que llaman a una función y esperan un resultado esperado, estos tests se deben realizar con independecia del sistema, conexiones u otros medios mas alla del propio codigo del software ya que estos tests solo buscan testear que el digo es correcto y no su funcionamiento.
+Los test unitarios buscan testear una parte del código, estos tests buscan asegurar que un fragmento de código arroje el resultado deseado para ello se usan métodos que llaman a una función y esperan un resultado esperado, estos tests se deben realizar con independencia del sistema, conexiones u otros medios mas allá del propio código del software ya que estos tests solo buscan testear que el digo es correcto y no su funcionamiento.
 
 A continuación voy a explicar como funcionan las diferentes secciones de este fichero:
 
 - #### [SetUp]
-Dentro de la clase de los tests unitarios hay una funcion con el atributo SetUp que se inicia al inicio de la ejecución del los test y busca inizializar todos los objetos que se usan en los test de esta clase.
+Dentro de la clase de los tests unitarios hay una función con el atributo SetUp que se inicia al inicio de la ejecución del los test y busca inicializar todos los objetos que se usan en los test de esta clase.
 
-![Create Unittest Objecta](../images/testing/Create_Unittest_Objects.png)
+![Create Unittest Object](../images/testing/Create_Unittest_Objects.png)
 
-_data: Seusara como un modelo de datos falsos que vamos a usar para los test.
+_data: Se usara como un modelo de datos falsos que vamos a usar para los test.
 
-_jsonText: Contiene un json en bruto que se usara para los test que reuieran un JSON.
+_jsonText: Contiene un json en bruto que se usara para los test que requieran un JSON.
 
 _docJson: Este objeto se va a convertir en Json serializado en base al testo Json anterior.
 
 _fakeResponse: Este objeto es un Mock que generara un respuesta falsa, lo que es un mock se explicara mas adelante.
 
-_fakeObject: Este es un objeto prefabicado con los datos del Json de los tests para testear sobre la serialización de los Json
+_fakeObject: Este es un objeto prefabricado con los datos del Json de los tests para testear sobre la serialización de los Json
 
-Volviendo al metodo Setup dentro de este metodo inicializamos todos estos objetos.
+Volviendo al método Setup dentro de este método inicializamos todos estos objetos.
 
 ![Instantiate Objects](../images/testing/instantiate_Unitest_Object.png)
 
 - #### [TearDown]
 
-El metodo etiquetado como Teardown busca ser una especie de recolector de basura que nos permite resear los objetos de los tests antes de cada prueba.
+El método etiquetado como Teardown busca ser una especie de recolector de basura que nos permite resetear los objetos de los tests antes de cada prueba.
 
 ![Destroy Objects](../images/testing/TearDown_UnitProjects.png)
 
 - ### Test del modelo de datos.
 
-En este caso este test busca comprobar una función que checkea si un objeto del modelo de datos esta "completo" No tiene ningun campo en blanco, para ello vamos a usar uno de los metodos de NUnit ``Assert.Pass()`` y ``Assert.Fail()``. Estas 2 funciones tienen como función dar un test por completado o por fallido.
+En este caso este test busca comprobar una función que checkea si un objeto del modelo de datos esta "completo" No tiene ningún campo en blanco, para ello vamos a usar uno de los métodos de NUnit ``Assert.Pass()`` y ``Assert.Fail()``. Estas 2 funciones tienen como función dar un test por completado o por fallido.
 
 
 
 ![Test Assert/Fail](../images/testing/AssertFail_Test.png)
 
-El siguiente test testea la misma función pero usa los metodos ``Assert.IsTrue`` y ``Assert.isFalse`` funcionan de forma similar a los anteriores pero pasan el test o no segun si lo del interior es verdadero o falso.
+El siguiente test testea la misma función pero usa los métodos ``Assert.IsTrue`` y ``Assert.isFalse`` funcionan de forma similar a los anteriores pero pasan el test o no según si lo del interior es verdadero o falso.
 
 ![Test IsTrue](../images/testing/AssertTrue_Test.png)
 
