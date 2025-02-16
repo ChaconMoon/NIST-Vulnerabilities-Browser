@@ -1,6 +1,6 @@
 ﻿namespace App.View
 {
-    partial class Form1
+    partial class Form
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             button1 = new Button();
             resultTable = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -35,7 +36,6 @@
             LastModified = new DataGridViewTextBoxColumn();
             Description = new DataGridViewTextBoxColumn();
             CVSS_Score = new DataGridViewTextBoxColumn();
-            textBox = new RichTextBox();
             TextBoxSoftwareName = new TextBox();
             connecting_textLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)resultTable).BeginInit();
@@ -91,14 +91,6 @@
             CVSS_Score.Name = "CVSS_Score";
             CVSS_Score.ReadOnly = true;
             // 
-            // textBox
-            // 
-            textBox.Location = new Point(812, 12);
-            textBox.Name = "textBox";
-            textBox.Size = new Size(411, 397);
-            textBox.TabIndex = 3;
-            textBox.Text = "";
-            // 
             // TextBoxSoftwareName
             // 
             TextBoxSoftwareName.Location = new Point(457, 415);
@@ -109,6 +101,7 @@
             // connecting_textLabel
             // 
             connecting_textLabel.AutoSize = true;
+            connecting_textLabel.ForeColor = Color.White;
             connecting_textLabel.Location = new Point(330, 419);
             connecting_textLabel.Name = "connecting_textLabel";
             connecting_textLabel.Size = new Size(0, 15);
@@ -118,14 +111,15 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1244, 450);
+            BackColor = Color.FromArgb(64, 64, 64);
+            ClientSize = new Size(807, 450);
             Controls.Add(connecting_textLabel);
             Controls.Add(TextBoxSoftwareName);
-            Controls.Add(textBox);
             Controls.Add(resultTable);
             Controls.Add(button1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
-            Text = "Form1";
+            Text = "NIST Vulnerabilities Search";
             ((System.ComponentModel.ISupportInitialize)resultTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -140,7 +134,6 @@
         private DataGridViewTextBoxColumn LastModified;
         private DataGridViewTextBoxColumn Description;
         private DataGridViewTextBoxColumn CVSS_Score;
-        private RichTextBox textBox;
         private TextBox TextBoxSoftwareName;
         private Label connecting_textLabel;
     }

@@ -4,16 +4,15 @@ using System.Data;
 using System.Text.Json;
 namespace App.View
 {
-    public partial class Form1 : Form
+    public partial class Form : System.Windows.Forms.Form
     {
         public CVEManagement cveManagement;
-        private CVEs cves;
         /*TESTED*/
-        public Form1()
+        public Form()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             cveManagement = new CVEManagement();
-            cves = new CVEs();
         }
         /*TESTED*/
         public async Task<string> GetCVEs()
@@ -21,9 +20,8 @@ namespace App.View
             connecting_textLabel.Text = "Connecting to NIST...";
             try
             {
-                JsonDocument str = await cveManagement.GetCVEInfo(textBox.Text);
+                JsonDocument str = await cveManagement.GetCVEInfo(TextBoxSoftwareName.Text);
                 string result = BuildDataView(str);
-                textBox.Text = result;
                 connecting_textLabel.Text = "Connected!";
                 return "Successful";
             }
@@ -36,23 +34,23 @@ namespace App.View
         }
         public string BuildDataView(JsonDocument str)
         {
-            foreach (Cve cve in cveManagement.FormatJSONCVEs(str).CveList)
+            foreach (Cve cve in CVEManagement.FormatJSONCVEs(str).CveList)
             {
                 DataGridViewRow row = (DataGridViewRow)resultTable.Rows[0].Clone();
-                row.Cells[0].Value = cve.id;
-                row.Cells[1].Value = cve.published;
-                row.Cells[2].Value = cve.lastModified;
-                row.Cells[3].Value = cve.description;
-                row.Cells[4].Value = cve.impactScore;
+                row.Cells[0].Value = cve.Id;
+                row.Cells[1].Value = cve.Published;
+                row.Cells[2].Value = cve.LastModified;
+                row.Cells[3].Value = cve.Description;
+                row.Cells[4].Value = cve.ImpactScore;
                 resultTable.Rows.Add(row);
             }
             return "Successful";
         }
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             _ = GetCVEs();
+            resultTable.Rows.Clear();
+            resultTable.Refresh();
         }
     }
 }

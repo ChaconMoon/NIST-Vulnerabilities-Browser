@@ -7,33 +7,23 @@ using System.Threading.Tasks;
 
 namespace App.Data
 {
-    public class Cve
+    public class Cve(string id_cve, string sourceIdentifier_cve, string published_cve, string lastModified_cve, string vulnStatus_cve, string description_cve, float impactStore_cve)
     {
-        public string id { get; set; }
-        public string sourceIdentifier { get; set; }
-        public string published { get; set; }
-        public string lastModified { get; set; }
-        public string vulnStatus { get; set; }
-        public string description { get; set; }
-        public float impactScore { get; set; }
+        public string Id { get; set; } = id_cve;
+        public string SourceIdentifier { get; set; } = sourceIdentifier_cve;
+        public string Published { get; set; } = published_cve;
+        public string LastModified { get; set; } = lastModified_cve;
+        public string VulnStatus { get; set; } = vulnStatus_cve;
+        public string Description { get; set; } = description_cve;
+        public float ImpactScore { get; set; } = impactStore_cve;
 
-        public Cve(string id_cve, string sourceIdentifier_cve, string published_cve, string lastModified_cve, string vulnStatus_cve, string description_cve, float impactStore_cve)
-        {
-            id = id_cve;
-            sourceIdentifier = sourceIdentifier_cve;
-            published = published_cve;
-            lastModified = lastModified_cve;
-            vulnStatus = vulnStatus_cve;
-            description = description_cve;
-            impactScore = impactStore_cve;
-        }
         public override string ToString()
         {
-            return id + sourceIdentifier + published + lastModified + vulnStatus + description + impactScore + "\n";
+            return Id + SourceIdentifier + Published + LastModified + VulnStatus + Description + ImpactScore + "\n";
         }
         public bool CheckCVE()
         {
-            if (id == "" || sourceIdentifier == "" || published == "" || lastModified == "" || vulnStatus == "" || description == "")
+            if (Id == "" || SourceIdentifier == "" || Published == "" || LastModified == "" || VulnStatus == "" || Description == "")
             {
                 return false;
             }

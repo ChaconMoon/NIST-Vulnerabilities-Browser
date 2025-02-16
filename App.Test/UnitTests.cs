@@ -9,17 +9,10 @@ namespace App.Test
     public class UnitTests
     {
         private readonly CVEs _data = new();
-        string _jsonText;
-        JsonDocument _docJson;
-        Mock<CVEManagement> _fakeResponse;
+        private string _jsonText;
+        private JsonDocument _docJson;
+        private Mock<CVEManagement> _fakeResponse;
         private Cve _fakeObject;
-
-        /* Limpia las variables despues de la ejecución de cada test*/
-        [TearDown]
-        public void TearDown()
-        {
-            _docJson.Dispose();
-        }
 
         /* Inicia las variables antes de la ejecución de los test*/
         [SetUp]
@@ -179,25 +172,29 @@ namespace App.Test
             );
         }
 
+        /* Limpia las variables despues de la ejecución de cada test*/
+        [TearDown]
+        public void TearDown()
+        {
+            _docJson.Dispose();
+        }
+
         /*TEST MODEL*/
 
         /* Test que comprueba si algun parametro del ejemplo de Datos esta vacio usando Assert.Fail/Assert.Pass*/
         [Test]
-        public void Test_ModelTesting()
+        public void TestModelTesting()
         {
             if (_data.CveList[0].CheckCVE())
             {
                 Assert.Pass();
             }
-
-
         }
-        /* Test que comprueba si algun parametro del ejemplo de Datos esta vacio usando Assert.IsTrue/Assert.IsFalse*/
+        /* Test que comprueba si algun parametro del ejemplo de Datos esta vacio usando Assert.IsTrue/Assert.IsFalse */
         [Test]
-        public void Test_ModelTesting2()
+        public void TestModelTesting2()
         {
             Assert.IsTrue(_data.CveList[0].CheckCVE());
-
         }
 
         /*TEST VIEW*/
@@ -207,29 +204,30 @@ namespace App.Test
         [Test]
         public async Task TestMockAPICode()
         {   
-            Form1 form1 = new Form1();
+            Form form1 = new Form();
             form1.cveManagement = _fakeResponse.Object;
             Assert.That(await form1.GetCVEs(), Is.EqualTo("Successful"));
         }
+
         [Test]
         public void TestBuildDataView()
         {
-            Form1 form1 = new Form1();
+            Form form1 = new Form();
             Assert.That(form1.BuildDataView(_docJson), Is.EqualTo("Successful"));
         }
 
         /*TEST CONTROLLER*/
 
         [Test]
-        public void Test_NullFormatCVE()
+        public void TestNullFormatCVE()
         {
-            Assert.Throws<NullReferenceException>(() => { new CVEManagement().FormatJSONCVEs(null); });
+            Assert.Throws<NullReferenceException>(() => { CVEManagement.FormatJSONCVEs(null); });
         }
 
         [Test]
-        public void Test_CorrectFormatCVE()
+        public void TestCorrectFormatCVE()
         {
-            Assert.That(new CVEManagement().FormatJSONCVEs(_docJson).CveList[0].ToString(), Is.EqualTo(_fakeObject.ToString()));
+            Assert.That(CVEManagement.FormatJSONCVEs(_docJson).CveList[0].ToString(), Is.EqualTo(_fakeObject.ToString()));
         }
 
     }
